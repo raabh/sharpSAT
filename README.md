@@ -27,18 +27,17 @@ Options:
 Building
 =========
 
-It suffices to change to the ./Release subdirectory and run
+First, run the setup script via `./setupdev.sh`. Second, change the directory to the
+build/Release subdirectory with `cd build/Release`. Finally, run `make` to build the binary.
 
-make
-
+Alternatively, you can trigger the provided workflow. The action build an x86_64 Ubuntu and macOS binary.
 
 NOTE:
 
-- it is necessary to have at least G++ 4.7 installed for sharpSAT to
+- It is necessary to have at least G++ 4.7 installed for sharpSAT to
 compile. This is particularly necessary as we use delegating constructors 
-
-- the GMP bignum package has to be installed in your system
-
+- The GMP bignum package and cmake have to be installed in your system. 
+- If you encounter a linking problem while useing some version of macOS, it is probably due to the linker not finding the gmp library. You can run `find /usr /opt -name "gmp.h"` to find the location of the gmp library. Following that, you can replace the folder of `include_directories(/usr/local/include)` in the CMakeLists.txt (line 12) with the location of the gmp library in you system.
 
 
 =========

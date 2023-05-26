@@ -1,0 +1,22 @@
+name: create-artifacts
+
+on: [push, workflow_dispatch]
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+    - uses: actions/checkout@v3
+    - name: setup dev
+      run: ./setupdev.sh
+    - name: build binary
+      run: cd build/Release; make
+    - name: Archieve Binary
+      uses: actions/upload-artifact@v3
+      with:
+        name: sharpSAT_${{ matrix.os }}
+        path: ./build/Release/sharpSAT
